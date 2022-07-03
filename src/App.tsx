@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { QueryClient, QueryClientProvider } from "react-query";
+import { CssBaseline, Paper } from "@mui/material";
+import MainLayout from "./ui/MainLayout";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
+const App = () => (
+  <div className="App">
+    <CssBaseline />
+    <QueryClientProvider client={queryClient}>
+      <Paper sx={{ height: "100vh", overflow: "auto" }}>
+        <MainLayout>
+          <span>content</span>
+        </MainLayout>
+      </Paper>
+    </QueryClientProvider>
+  </div>
+);
 
 export default App;
