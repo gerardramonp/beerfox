@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from "react-query";
-import { CssBaseline, Paper } from "@mui/material";
+import { createTheme, CssBaseline, Paper, ThemeProvider } from "@mui/material";
 import MainLayout from "./ui/MainLayout";
+import { themeOptions } from "./ui/themeOptions";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -10,16 +11,20 @@ const queryClient = new QueryClient({
   },
 });
 
+const muiTheme = createTheme(themeOptions);
+
 const App = () => (
   <div className="App">
     <CssBaseline />
-    <QueryClientProvider client={queryClient}>
-      <Paper sx={{ height: "100vh", overflow: "auto" }}>
-        <MainLayout>
-          <span>content</span>
-        </MainLayout>
-      </Paper>
-    </QueryClientProvider>
+    <ThemeProvider theme={muiTheme}>
+      <QueryClientProvider client={queryClient}>
+        <Paper sx={{ height: "100vh", overflow: "auto" }}>
+          <MainLayout>
+            <span>content</span>
+          </MainLayout>
+        </Paper>
+      </QueryClientProvider>
+    </ThemeProvider>
   </div>
 );
 
