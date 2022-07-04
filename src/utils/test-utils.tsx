@@ -4,7 +4,7 @@ import React, { ReactElement } from "react";
 
 import { ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { muiTheme } from "../ui/themeOptions";
+import useMaterialTheme from "../hooks/useMaterialTheme";
 
 function queryClientFactory() {
   const queryClient = new QueryClient({
@@ -21,9 +21,10 @@ function queryClientFactory() {
 
 export function testWrapperFactory(component: ReactElement) {
   const queryClient = queryClientFactory();
+  const theme = useMaterialTheme("light");
 
   return render(
-    <ThemeProvider theme={muiTheme}>
+    <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         {component}
       </QueryClientProvider>
