@@ -32,6 +32,6 @@ export const StyledBeerActionsContainer = styled(Box)`
   }
 `;
 
-export const StyledActionButton = styled(Button)<{ $lastchild?: boolean }>`
-  margin-bottom: ${({ $lastchild }) => ($lastchild ? 0 : "1rem")};
+export const StyledActionButton = styled(Button)`
+  margin-bottom: 1rem;
 `;

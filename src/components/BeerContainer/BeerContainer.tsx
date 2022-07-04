@@ -62,7 +62,7 @@ const BeerContainer: FC = () => {
           variant="contained"
           disabled={randomBeerQuery.isFetching}
           onClick={() => {}}
-          $lastchild
+          style={{ marginBottom: 0 }}
         >
           Random non alcoholic beer
         </StyledActionButton>
