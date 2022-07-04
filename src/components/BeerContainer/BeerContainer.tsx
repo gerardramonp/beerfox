@@ -1,4 +1,5 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useContext, useEffect, useState } from "react";
+import { BeerABVContext } from "../../contexts/BeerABVContextProvider";
 import useBeerTemplateVisibility from "../../hooks/useBeerTemplateVisibility";
 import useGetNonAlcoholicBeersQuery from "../../queries/useGetNonAlcoholicBeersQuery";
 import useGetRandomBeerQuery from "../../queries/useGetRandomBeerQuery";
@@ -18,10 +19,12 @@ import {
   and then pass the data to Presentational components so they're easier to test.
 */
 const BeerContainer: FC = () => {
+  const { abv } = useContext(BeerABVContext);
+
   const [beer, setBeer] = useState<IBeerResponse | null>(null);
 
   const randomBeerQuery = useGetRandomBeerQuery();
-  const nonAlcoholicBeersQuery = useGetNonAlcoholicBeersQuery();
+  const nonAlcoholicBeersQuery = useGetNonAlcoholicBeersQuery(abv);
 
   const { isSkeletonVisible, isWarningVisible, isBeerVisible } =
     useBeerTemplateVisibility(randomBeerQuery, beer);

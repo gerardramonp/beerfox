@@ -9,6 +9,7 @@ import {
   useScrollTrigger,
 } from "@mui/material";
 import { FC, ReactElement, useCallback, useContext } from "react";
+import BeerABVSelect from "../components/BeerABVSelect/BeerABVSelect";
 import { ThemeContext } from "../contexts/ThemeContextProvider";
 import { BREAKPOINT_LG } from "./themeOptions";
 
@@ -56,6 +57,9 @@ const Header: FC = () => {
           <Typography variant="h1" sx={{ flexGrow: 1 }}>
             Beerfox
           </Typography>
+
+          <BeerABVSelect />
+
           <FormGroup>
             <FormControlLabel
               control={
