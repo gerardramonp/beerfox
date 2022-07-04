@@ -36,12 +36,12 @@ export function testWrapperFactory(component: ReactElement) {
   );
 }
 
-export function queryWrapperFactory(customQueryHook: any) {
+export function queryWrapperFactory(customQueryHook: any, params?: any) {
   const queryClient = queryClientFactory();
 
   const wrapper: any = ({ children }: any) => (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
 
-  return renderHook(() => customQueryHook(), { wrapper });
+  return renderHook(() => customQueryHook(params), { wrapper });
 }

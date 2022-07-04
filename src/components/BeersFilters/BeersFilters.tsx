@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { FormControlLabel, Radio, RadioGroup, TextField } from "@mui/material";
 import React, { FC, useState } from "react";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -102,7 +103,7 @@ const BeersFilters: FC<IBeersFiltersProps> = ({
             label="Brewed before"
             views={["year", "month"]}
             value={filters.value}
-            inputFormat="mm / yyyy"
+            inputFormat="MM / yyyy"
             onChange={(newValue) => {
               handleDateChange(newValue, filters, setFilters);
             }}
