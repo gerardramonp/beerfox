@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { CssBaseline, Paper, ThemeProvider } from "@mui/material";
 import MainLayout from "./ui/MainLayout";
 import { muiTheme } from "./ui/themeOptions";
+import BeersPage from "./pages/BeersPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,7 +20,7 @@ const App = () => (
         {/* <Paper sx={{ height: "100vh", overflow: "auto" }}> */}
         <Paper sx={{ height: "100vh", overflow: "auto" }}>
           <MainLayout>
-            <span>content</span>
+            <BeersPage />
           </MainLayout>
         </Paper>
       </QueryClientProvider>

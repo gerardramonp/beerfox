@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { render } from "@testing-library/react";
+import { render, renderHook } from "@testing-library/react";
 import React, { ReactElement } from "react";
 
 import { ThemeProvider } from "@mui/material";
@@ -23,4 +23,12 @@ export function testWrapperFactory(component: ReactElement) {
       </QueryClientProvider>
     </ThemeProvider>,
   );
+}
+
+export function queryWrapperFactory(customQueryHook: any) {
+  const wrapper: any = ({ children }: any) => (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
+
+  return renderHook(() => customQueryHook(), { wrapper });
 }
