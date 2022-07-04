@@ -6,16 +6,22 @@ import { ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { muiTheme } from "../ui/themeOptions";
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      retry: false,
+function queryClientFactory() {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        retry: false,
+      },
     },
-  },
-});
+  });
+
+  return queryClient;
+}
 
 export function testWrapperFactory(component: ReactElement) {
+  const queryClient = queryClientFactory();
+
   return render(
     <ThemeProvider theme={muiTheme}>
       <QueryClientProvider client={queryClient}>
@@ -26,6 +32,8 @@ export function testWrapperFactory(component: ReactElement) {
 }
 
 export function queryWrapperFactory(customQueryHook: any) {
+  const queryClient = queryClientFactory();
+
   const wrapper: any = ({ children }: any) => (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );

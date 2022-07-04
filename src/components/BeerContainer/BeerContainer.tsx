@@ -1,5 +1,6 @@
 import { FC, useCallback, useEffect, useState } from "react";
 import useBeerTemplateVisibility from "../../hooks/useBeerTemplateVisibility";
+import useGetNonAlcoholicBeersQuery from "../../queries/useGetNonAlcoholicBeersQuery";
 import useGetRandomBeerQuery from "../../queries/useGetRandomBeerQuery";
 import { IBeerResponse } from "../../types/beerResponse";
 import BeerCard from "../BeerCard/BeerCard";
@@ -20,6 +21,7 @@ const BeerContainer: FC = () => {
   const [beer, setBeer] = useState<IBeerResponse | null>(null);
 
   const randomBeerQuery = useGetRandomBeerQuery();
+  const nonAlcoholicBeersQuery = useGetNonAlcoholicBeersQuery();
 
   const { isSkeletonVisible, isWarningVisible, isBeerVisible } =
     useBeerTemplateVisibility(randomBeerQuery, beer);
@@ -27,6 +29,25 @@ const BeerContainer: FC = () => {
   const handleAnotherBeerClick = useCallback(() => {
     randomBeerQuery.refetch();
   }, []);
+
+  const handleNonAlcoholicBeerClick = useCallback(() => {
+    if (nonAlcoholicBeersQuery?.data?.length) {
+      let newBeer: IBeerResponse;
+      do {
+        const randomNum = Math.floor(
+          Math.random() * nonAlcoholicBeersQuery.data.length,
+        );
+        newBeer = nonAlcoholicBeersQuery.data[randomNum];
+      } while (
+        newBeer.id === beer?.id &&
+        nonAlcoholicBeersQuery?.data?.length > 1
+      );
+
+      setBeer(newBeer);
+    } else {
+      setBeer(null);
+    }
+  }, [beer]);
 
   useEffect(() => {
     if (
@@ -61,7 +82,7 @@ const BeerContainer: FC = () => {
         <StyledActionButton
           variant="contained"
           disabled={randomBeerQuery.isFetching}
-          onClick={() => {}}
+          onClick={handleNonAlcoholicBeerClick}
           style={{ marginBottom: 0 }}
         >
           Random non alcoholic beer
