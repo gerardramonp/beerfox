@@ -9,6 +9,7 @@ import { BREAKPOINT_SM } from "../../ui/themeOptions";
 import BeerCardError from "../BeerCard/BeerCardError";
 import BeerCardWarning from "../BeerCard/BeerCardWarning";
 import BeersFilters from "../BeersFilters/BeersFilters";
+import LiteBeerCard from "../LiteBeerCard/LiteBeerCard";
 
 const StyledBeerListContainer = styled(Box)`
   margin-top: 1rem;
@@ -67,7 +68,7 @@ const BeerListContainer: FC = () => {
               variants={leftVariants}
             >
               {getBeersQuery.data.map((beer) => (
-                <span>{beer.name}</span>
+                <LiteBeerCard beer={beer} key={`beer${beer.id}`} />
               ))}
             </motion.div>
           )}
