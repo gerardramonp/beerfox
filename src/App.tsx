@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { CssBaseline, Paper } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { Toaster } from "react-hot-toast";
 import MainLayout from "./ui/MainLayout";
 import BeersPage from "./pages/BeersPage";
 import ThemeContextProvider from "./contexts/ThemeContextProvider";
@@ -41,6 +42,7 @@ const App = () => (
         </BeerABVContextProvider>
       </ThemeContextProvider>
     </LocalizationProvider>
+    <Toaster />
   </div>
 );
 

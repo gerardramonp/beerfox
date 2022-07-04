@@ -21,6 +21,7 @@
     "framer-motion": "^6.3.16",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.2.0",
     "react-query": "^3.39.1",
     "react-scripts": "5.0.1",
     "react-use": "^17.4.0",

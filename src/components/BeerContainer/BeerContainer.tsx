@@ -1,4 +1,5 @@
 import { FC, useCallback, useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { BeerABVContext } from "../../contexts/BeerABVContextProvider";
 import useBeerTemplateVisibility from "../../hooks/useBeerTemplateVisibility";
 import useGetNonAlcoholicBeersQuery from "../../queries/useGetNonAlcoholicBeersQuery";
@@ -14,6 +15,9 @@ import {
   StyledActionButton,
 } from "./BeerContainerSC";
 
+const toastError =
+  "There are no beers with the selected ABV. Try a higher value.";
+
 /*
   This component is using a container design pattern. The reason I'm using that, is to do all the logic here, 
   and then pass the data to Presentational components so they're easier to test.
@@ -24,7 +28,6 @@ const BeerContainer: FC = () => {
   const [beer, setBeer] = useState<IBeerResponse | null>(null);
 
   const randomBeerQuery = useGetRandomBeerQuery();
-  console.log(randomBeerQuery.data);
 
   const nonAlcoholicBeersQuery = useGetNonAlcoholicBeersQuery(abv);
 
@@ -66,6 +69,15 @@ const BeerContainer: FC = () => {
     }
   }, [randomBeerQuery.data]);
 
+  useEffect(() => {
+    if (
+      nonAlcoholicBeersQuery.data &&
+      nonAlcoholicBeersQuery.data.length === 0
+    ) {
+      toast.error(toastError);
+    }
+  }, [nonAlcoholicBeersQuery.data]);
+
   return (
     <StyledBeerCardContainer elevation={3}>
       <>
@@ -86,7 +98,10 @@ const BeerContainer: FC = () => {
         </StyledActionButton>
         <StyledActionButton
           variant="contained"
-          disabled={randomBeerQuery.isFetching}
+          disabled={
+            randomBeerQuery.isFetching ||
+            nonAlcoholicBeersQuery?.data?.length === 0
+          }
           onClick={handleNonAlcoholicBeerClick}
           style={{ marginBottom: 0 }}
         >
