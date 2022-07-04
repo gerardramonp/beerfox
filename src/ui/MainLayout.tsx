@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
 import { FC } from "react";
 import { useWindowSize } from "react-use";
-import Footer from "../components/Footer/Footer";
 import Header from "./Header";
 import { BREAKPOINT_SM, BREAKPOINT_LG } from "./themeOptions";
 
@@ -34,8 +33,6 @@ const MainLayout: FC<IMainLayoutProps> = ({ children }) => {
         >
           {children}
         </Box>
-
-        <Footer />
       </Box>
     </>
   );
