@@ -1,4 +1,4 @@
-import { ThemeOptions } from "@mui/material";
+import { createTheme, ThemeOptions } from "@mui/material";
 
 export const BREAKPOINT_XS = 0;
 export const BREAKPOINT_SM = 600;
@@ -39,3 +39,5 @@ export const themeOptions: ThemeOptions = {
     },
   },
 };
+
+export const muiTheme = createTheme(themeOptions);

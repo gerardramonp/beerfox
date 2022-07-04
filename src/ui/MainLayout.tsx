@@ -1,6 +1,7 @@
-import { AppBar, Box, Toolbar, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { FC } from "react";
 import { useWindowSize } from "react-use";
+import Header from "./Header";
 import { BREAKPOINT_SM, BREAKPOINT_LG } from "./themeOptions";
 
 interface IMainLayoutProps {
@@ -11,25 +12,7 @@ const MainLayout: FC<IMainLayoutProps> = ({ children }) => {
 
   return (
     <>
-      <AppBar
-        position="fixed"
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-        }}
-      >
-        <Toolbar
-          sx={{
-            width: "100%",
-            maxWidth: BREAKPOINT_LG,
-          }}
-        >
-          <Typography variant="h1" sx={{ flexGrow: 1 }}>
-            BFlox
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <Header />
       <Box
         sx={{
           display: "flex",
