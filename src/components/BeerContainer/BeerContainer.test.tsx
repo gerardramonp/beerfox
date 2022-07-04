@@ -52,6 +52,7 @@ describe("Given a BeerContainer component", () => {
       }));
 
       mockedUseGetNonAlcoholicBeersQuery.mockImplementation(() => ({
+        isError: false,
         isLoading: false,
         isFetching: false,
         refetch: jest.fn(),
@@ -64,7 +65,7 @@ describe("Given a BeerContainer component", () => {
   });
 
   describe("When the query returns a valid beer", () => {
-    test.only("Then should print the beer name and description", async () => {
+    test("Then should print the beer name and description", async () => {
       mockedUseGetRandomBeerQuery.mockImplementation(() => ({
         isError: false,
         isLoading: false,
@@ -74,6 +75,7 @@ describe("Given a BeerContainer component", () => {
       }));
 
       mockedUseGetNonAlcoholicBeersQuery.mockImplementation(() => ({
+        isError: false,
         isLoading: false,
         isFetching: false,
         refetch: jest.fn(),
@@ -98,6 +100,13 @@ describe("Given a BeerContainer component", () => {
         refetch: refetchMock,
       }));
 
+      mockedUseGetNonAlcoholicBeersQuery.mockImplementation(() => ({
+        isError: false,
+        isLoading: false,
+        isFetching: false,
+        refetch: jest.fn(),
+      }));
+
       const { getByText } = testWrapperFactory(<BeerContainer />);
 
       const beerButton = getByText("Another Beer");
@@ -109,32 +118,6 @@ describe("Given a BeerContainer component", () => {
   });
 
   describe("When user clicks the Random non alcoholic beer button", () => {
-    describe("And there are no beers to show", () => {
-      test("Then should show the no beers with that criteria alert", () => {
-        mockedUseGetRandomBeerQuery.mockImplementation(() => ({
-          isError: false,
-          isLoading: false,
-          isFetching: false,
-          data: mockBeer,
-          refetch: jest.fn(),
-        }));
-
-        mockedUseGetNonAlcoholicBeersQuery.mockImplementation(() => ({
-          data: [],
-        }));
-
-        const { getByText } = testWrapperFactory(<BeerContainer />);
-
-        getByText(mockBeer.name);
-
-        const nonAlcoholicBeerButton = getByText("Random non alcoholic beer");
-
-        userEvent.click(nonAlcoholicBeerButton);
-
-        getByText("There are no beers matching this criteria.");
-      });
-    });
-
     describe("And there are beers to show", () => {
       test("Then should switch the beer", () => {
         mockedUseGetRandomBeerQuery.mockImplementation(() => ({
@@ -166,6 +149,28 @@ describe("Given a BeerContainer component", () => {
 
         getByText("myBeerNoAlcohol1");
       });
+    });
+  });
+
+  describe("When useGetNonAlcoholicBeersQuery.data is an empty array.", () => {
+    test("Then should disable random non alcoholic beer button", () => {
+      mockedUseGetRandomBeerQuery.mockImplementation(() => ({
+        isError: false,
+        isLoading: false,
+        isFetching: false,
+        data: mockBeer,
+        refetch: jest.fn(),
+      }));
+
+      mockedUseGetNonAlcoholicBeersQuery.mockImplementation(() => ({
+        data: [],
+      }));
+
+      const { getByText } = testWrapperFactory(<BeerContainer />);
+
+      const nonAlcoholicBeerButton = getByText("Random non alcoholic beer");
+
+      expect(nonAlcoholicBeerButton).toBeDisabled();
     });
   });
 });
