@@ -1,6 +1,8 @@
 /* eslint-disable import/prefer-default-export */
 import { render, renderHook } from "@testing-library/react";
 import React, { ReactElement } from "react";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 import { ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -24,11 +26,13 @@ export function testWrapperFactory(component: ReactElement) {
   const theme = useMaterialTheme("light");
 
   return render(
-    <ThemeProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
-        {component}
-      </QueryClientProvider>
-    </ThemeProvider>,
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <ThemeProvider theme={theme}>
+        <QueryClientProvider client={queryClient}>
+          {component}
+        </QueryClientProvider>
+      </ThemeProvider>
+    </LocalizationProvider>,
   );
 }
 
