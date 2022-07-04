@@ -6,6 +6,7 @@ import MainLayout from "./ui/MainLayout";
 import BeersPage from "./pages/BeersPage";
 import ThemeContextProvider from "./contexts/ThemeContextProvider";
 import Footer from "./components/Footer/Footer";
+import { BeerABVContextProvider } from "./contexts/BeerABVContextProvider";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,22 +21,24 @@ const App = () => (
     <CssBaseline />
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <ThemeContextProvider>
-        <QueryClientProvider client={queryClient}>
-          <Paper
-            sx={{
-              flex: 1,
-              minHeight: "100vh",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-            }}
-          >
-            <MainLayout>
-              <BeersPage />
-            </MainLayout>
-            <Footer />
-          </Paper>
-        </QueryClientProvider>
+        <BeerABVContextProvider>
+          <QueryClientProvider client={queryClient}>
+            <Paper
+              sx={{
+                flex: 1,
+                minHeight: "100vh",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }}
+            >
+              <MainLayout>
+                <BeersPage />
+              </MainLayout>
+              <Footer />
+            </Paper>
+          </QueryClientProvider>
+        </BeerABVContextProvider>
       </ThemeContextProvider>
     </LocalizationProvider>
   </div>
