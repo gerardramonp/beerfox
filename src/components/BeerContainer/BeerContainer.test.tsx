@@ -31,6 +31,12 @@ describe("Given a BeerContainer component", () => {
         refetch: jest.fn(),
       }));
 
+      mockedUseGetNonAlcoholicBeersQuery.mockImplementation(() => ({
+        isLoading: true,
+        isFetching: true,
+        refetch: jest.fn(),
+      }));
+
       const { getByTestId } = testWrapperFactory(<BeerContainer />);
 
       getByTestId("beer-name-loading-skeleton");
@@ -45,6 +51,12 @@ describe("Given a BeerContainer component", () => {
         refetch: jest.fn(),
       }));
 
+      mockedUseGetNonAlcoholicBeersQuery.mockImplementation(() => ({
+        isLoading: false,
+        isFetching: false,
+        refetch: jest.fn(),
+      }));
+
       const { getByText } = testWrapperFactory(<BeerContainer />);
 
       getByText("There has been an error. Please try again.");
@@ -52,7 +64,7 @@ describe("Given a BeerContainer component", () => {
   });
 
   describe("When the query returns a valid beer", () => {
-    test("Then should print the beer name and description", () => {
+    test.only("Then should print the beer name and description", async () => {
       mockedUseGetRandomBeerQuery.mockImplementation(() => ({
         isError: false,
         isLoading: false,
@@ -61,10 +73,16 @@ describe("Given a BeerContainer component", () => {
         data: mockBeer,
       }));
 
-      const { getByText } = testWrapperFactory(<BeerContainer />);
+      mockedUseGetNonAlcoholicBeersQuery.mockImplementation(() => ({
+        isLoading: false,
+        isFetching: false,
+        refetch: jest.fn(),
+      }));
 
-      getByText(mockBeer.name);
-      getByText(mockBeer.description);
+      const { findByText } = testWrapperFactory(<BeerContainer />);
+
+      await findByText(mockBeer.name);
+      await findByText(mockBeer.description);
     });
   });
 

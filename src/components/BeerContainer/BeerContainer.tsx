@@ -24,6 +24,8 @@ const BeerContainer: FC = () => {
   const [beer, setBeer] = useState<IBeerResponse | null>(null);
 
   const randomBeerQuery = useGetRandomBeerQuery();
+  console.log(randomBeerQuery.data);
+
   const nonAlcoholicBeersQuery = useGetNonAlcoholicBeersQuery(abv);
 
   const { isSkeletonVisible, isWarningVisible, isBeerVisible } =
@@ -63,28 +65,6 @@ const BeerContainer: FC = () => {
       setBeer(randomBeerQuery.data);
     }
   }, [randomBeerQuery.data]);
-
-  useEffect(() => {
-    if (beer) {
-      if (
-        nonAlcoholicBeersQuery.data?.length === 0 &&
-        beer.abv > abv &&
-        beer.abv <= 1
-      ) {
-        setBeer(null);
-      }
-    } else {
-      handleNonAlcoholicBeerClick();
-    }
-    if (
-      nonAlcoholicBeersQuery.data?.length === 0 &&
-      beer &&
-      beer.abv > abv &&
-      beer.abv <= 1
-    ) {
-      setBeer(null);
-    }
-  }, [nonAlcoholicBeersQuery.data]);
 
   return (
     <StyledBeerCardContainer elevation={3}>

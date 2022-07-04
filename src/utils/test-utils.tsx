@@ -6,6 +6,7 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 import ThemeContextProvider from "../contexts/ThemeContextProvider";
+import { BeerABVContextProvider } from "../contexts/BeerABVContextProvider";
 
 function queryClientFactory() {
   const queryClient = new QueryClient({
@@ -26,9 +27,11 @@ export function testWrapperFactory(component: ReactElement) {
   return render(
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <ThemeContextProvider>
-        <QueryClientProvider client={queryClient}>
-          {component}
-        </QueryClientProvider>
+        <BeerABVContextProvider>
+          <QueryClientProvider client={queryClient}>
+            {component}
+          </QueryClientProvider>
+        </BeerABVContextProvider>
       </ThemeContextProvider>
     </LocalizationProvider>,
   );
