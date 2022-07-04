@@ -12,7 +12,6 @@ const BeerCardSkeleton: FC = () => {
   return (
     <StyledBeerInfoContainer
       component={motion.div}
-      // @ts-ignore --> This is cause TS does not recognise motion.div props in a MUI component
       animate="animate"
       initial="initial"
       variants={opacityVariants}

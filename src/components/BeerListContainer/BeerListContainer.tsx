@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { Box, LinearProgress, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { FC, useCallback } from "react";
+import useBeerListTemplateVisibility from "../../hooks/useBeerListTemplateVisibility";
 import useBeersFilters from "../../hooks/useBeersFilters";
 import useGetBeersQuery from "../../queries/useGetBeersQuery";
 import { downVariants, leftVariants } from "../../ui/FramerMotionVariants";
@@ -28,12 +29,14 @@ const BeerListContainer: FC = () => {
 
   const getBeersQuery = useGetBeersQuery(filters);
 
+  const { isLoadingVisible, isWarningVisible, isListVisible } =
+    useBeerListTemplateVisibility(getBeersQuery);
+
   const handleSearchClick = useCallback(() => getBeersQuery.refetch(), []);
 
   return (
     <StyledBeerListContainer
       component={motion.div}
-      // @ts-ignore
       initial="initial"
       animate="animate"
       variants={downVariants}
@@ -45,33 +48,28 @@ const BeerListContainer: FC = () => {
         onSearchClick={handleSearchClick}
       />
 
-      {!getBeersQuery.isError &&
-        (getBeersQuery.isLoading || getBeersQuery.isFetching) && (
-          <Box sx={{ width: "100%" }}>
-            <LinearProgress sx={{ height: "2px" }} />
-          </Box>
-        )}
+      {isLoadingVisible && (
+        <Box sx={{ width: "100%" }}>
+          <LinearProgress sx={{ height: "2px" }} data-testid="search-loading" />
+        </Box>
+      )}
 
       <StyledBeerList>
         {getBeersQuery.isError && <BeerCardError />}
 
-        {!getBeersQuery.error &&
-          !getBeersQuery.isLoading &&
-          getBeersQuery.data?.length === 0 && <BeerCardWarning />}
+        {isWarningVisible && <BeerCardWarning />}
 
-        {!getBeersQuery.error &&
-          !getBeersQuery.isLoading &&
-          getBeersQuery.data && (
-            <motion.div
-              initial="initial"
-              animate="animate"
-              variants={leftVariants}
-            >
-              {getBeersQuery.data.map((beer) => (
-                <LiteBeerCard beer={beer} key={`beer${beer.id}`} />
-              ))}
-            </motion.div>
-          )}
+        {isListVisible && (
+          <motion.div
+            initial="initial"
+            animate="animate"
+            variants={leftVariants}
+          >
+            {getBeersQuery?.data?.map((beer) => (
+              <LiteBeerCard beer={beer} key={`beer${beer.id}`} />
+            ))}
+          </motion.div>
+        )}
       </StyledBeerList>
     </StyledBeerListContainer>
   );

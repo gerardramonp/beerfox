@@ -18,7 +18,6 @@ interface IBeerCardProps {
 const BeerCard: FC<IBeerCardProps> = ({ beer }) => (
   <StyledBeerInfoContainer
     component={motion.div}
-    // @ts-ignore --> This is because TS does not recognise the framer motion props in a MUI component
     animate="animate"
     initial="initial"
     variants={opacityVariants}

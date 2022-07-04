@@ -16,7 +16,7 @@ interface ILiteBeerCardProps {
 }
 
 const LiteBeerCard: FC<ILiteBeerCardProps> = ({ beer }) => (
-  <StyledLiteBeerCardContainer elevation={3}>
+  <StyledLiteBeerCardContainer elevation={3} data-testid="lite-beer-card">
     <StyledImageContainer>
       <StyledLiteBeerImage
         src={beer.image_url ?? beerImagePlaceholder}
