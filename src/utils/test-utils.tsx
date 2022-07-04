@@ -4,9 +4,8 @@ import React, { ReactElement } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
-import { ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "react-query";
-import useMaterialTheme from "../hooks/useMaterialTheme";
+import ThemeContextProvider from "../contexts/ThemeContextProvider";
 
 function queryClientFactory() {
   const queryClient = new QueryClient({
@@ -23,15 +22,14 @@ function queryClientFactory() {
 
 export function testWrapperFactory(component: ReactElement) {
   const queryClient = queryClientFactory();
-  const theme = useMaterialTheme("light");
 
   return render(
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <ThemeProvider theme={theme}>
+      <ThemeContextProvider>
         <QueryClientProvider client={queryClient}>
           {component}
         </QueryClientProvider>
-      </ThemeProvider>
+      </ThemeContextProvider>
     </LocalizationProvider>,
   );
 }
