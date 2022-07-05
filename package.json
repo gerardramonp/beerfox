@@ -1,5 +1,13 @@
 {
   "name": "beerfox",
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "App.tsx",
+      "index.tsx",
+      "reportWebVitals.ts",
+      "Footer.tsx"
+    ]
+  },
   "version": "0.1.0",
   "private": true,
   "dependencies": {
