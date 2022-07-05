@@ -43,7 +43,7 @@ const BeersFilters: FC<IBeersFiltersProps> = ({
 
   const handleTextChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      if (/^[\w\d\s-]+$/.test(event.target.value)) {
+      if (/^[\w\s-]+$/.test(event.target.value)) {
         setTextError(false);
         setFilters({
           ...filters,
