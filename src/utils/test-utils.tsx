@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { render, renderHook } from "@testing-library/react";
 import React, { ReactElement } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers";
