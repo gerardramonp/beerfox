@@ -52,8 +52,6 @@ const BeerContainer: FC = () => {
       );
 
       setBeer(newBeer);
-    } else {
-      setBeer(null);
     }
   }, [beer, nonAlcoholicBeersQuery.data]);
 
