@@ -46,3 +46,16 @@ export function queryWrapperFactory(customQueryHook: any, params?: any) {
 
   return renderHook(() => customQueryHook(params), { wrapper });
 }
+
+export const queryResponseFactory = (
+  isLoading: boolean = true,
+  isError: boolean = false,
+  data: any = undefined,
+  refetch: any = jest.fn(),
+) => ({
+  isLoading,
+  isFetching: isLoading,
+  isError,
+  data,
+  refetch,
+});

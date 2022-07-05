@@ -2,7 +2,10 @@ import userEvent from "@testing-library/user-event";
 import BeerContainer from "./BeerContainer";
 import useGetRandomBeerQuery from "../../queries/useGetRandomBeerQuery";
 import useGetNonAlcoholicBeersQuery from "../../queries/useGetNonAlcoholicBeersQuery";
-import { testWrapperFactory } from "../../utils/test-utils";
+import {
+  queryResponseFactory,
+  testWrapperFactory,
+} from "../../utils/test-utils";
 
 const mockedUseGetRandomBeerQuery = useGetRandomBeerQuery as jest.Mock<any>;
 const mockedUseGetNonAlcoholicBeersQuery =
@@ -25,17 +28,13 @@ describe("Given a BeerContainer component", () => {
 
   describe("When the randomBeerQuery is loading", () => {
     test("Then should show the loading skeleton", () => {
-      mockedUseGetRandomBeerQuery.mockImplementation(() => ({
-        isLoading: true,
-        isFetching: true,
-        refetch: jest.fn(),
-      }));
+      mockedUseGetRandomBeerQuery.mockImplementation(() =>
+        queryResponseFactory(),
+      );
 
-      mockedUseGetNonAlcoholicBeersQuery.mockImplementation(() => ({
-        isLoading: true,
-        isFetching: true,
-        refetch: jest.fn(),
-      }));
+      mockedUseGetNonAlcoholicBeersQuery.mockImplementation(() =>
+        queryResponseFactory(),
+      );
 
       const { getByTestId } = testWrapperFactory(<BeerContainer />);
 
@@ -45,18 +44,13 @@ describe("Given a BeerContainer component", () => {
 
   describe("When the randomBeerQuery isError is true", () => {
     test("Then should display an error message", () => {
-      mockedUseGetRandomBeerQuery.mockImplementation(() => ({
-        isError: true,
-        isFetching: false,
-        refetch: jest.fn(),
-      }));
+      mockedUseGetRandomBeerQuery.mockImplementation(() =>
+        queryResponseFactory(false, true),
+      );
 
-      mockedUseGetNonAlcoholicBeersQuery.mockImplementation(() => ({
-        isError: false,
-        isLoading: false,
-        isFetching: false,
-        refetch: jest.fn(),
-      }));
+      mockedUseGetNonAlcoholicBeersQuery.mockImplementation(() =>
+        queryResponseFactory(false, false),
+      );
 
       const { getByText } = testWrapperFactory(<BeerContainer />);
 
@@ -66,20 +60,13 @@ describe("Given a BeerContainer component", () => {
 
   describe("When the query returns a valid beer", () => {
     test("Then should print the beer name and description", async () => {
-      mockedUseGetRandomBeerQuery.mockImplementation(() => ({
-        isError: false,
-        isLoading: false,
-        isFetching: false,
-        refetch: jest.fn(),
-        data: mockBeer,
-      }));
+      mockedUseGetRandomBeerQuery.mockImplementation(() =>
+        queryResponseFactory(false, false, mockBeer),
+      );
 
-      mockedUseGetNonAlcoholicBeersQuery.mockImplementation(() => ({
-        isError: false,
-        isLoading: false,
-        isFetching: false,
-        refetch: jest.fn(),
-      }));
+      mockedUseGetNonAlcoholicBeersQuery.mockImplementation(() =>
+        queryResponseFactory(false, false),
+      );
 
       const { findByText } = testWrapperFactory(<BeerContainer />);
 
@@ -92,20 +79,13 @@ describe("Given a BeerContainer component", () => {
     test("Then should call useGetRandomBeerQuer.refetch function", () => {
       const refetchMock = jest.fn();
 
-      mockedUseGetRandomBeerQuery.mockImplementation(() => ({
-        isError: false,
-        isLoading: false,
-        isFetching: false,
-        data: mockBeer,
-        refetch: refetchMock,
-      }));
+      mockedUseGetRandomBeerQuery.mockImplementation(() =>
+        queryResponseFactory(false, false, mockBeer, refetchMock),
+      );
 
-      mockedUseGetNonAlcoholicBeersQuery.mockImplementation(() => ({
-        isError: false,
-        isLoading: false,
-        isFetching: false,
-        refetch: jest.fn(),
-      }));
+      mockedUseGetNonAlcoholicBeersQuery.mockImplementation(() =>
+        queryResponseFactory(false, false),
+      );
 
       const { getByText } = testWrapperFactory(<BeerContainer />);
 
@@ -120,13 +100,9 @@ describe("Given a BeerContainer component", () => {
   describe("When user clicks the Random non alcoholic beer button", () => {
     describe("And there are beers to show", () => {
       test("Then should switch the beer", () => {
-        mockedUseGetRandomBeerQuery.mockImplementation(() => ({
-          isError: false,
-          isLoading: false,
-          isFetching: false,
-          data: mockBeer,
-          refetch: jest.fn(),
-        }));
+        mockedUseGetRandomBeerQuery.mockImplementation(() =>
+          queryResponseFactory(false, false, mockBeer),
+        );
 
         mockedUseGetNonAlcoholicBeersQuery.mockImplementation(() => ({
           data: [
@@ -154,13 +130,9 @@ describe("Given a BeerContainer component", () => {
 
   describe("When useGetNonAlcoholicBeersQuery.data is an empty array.", () => {
     test("Then should disable random non alcoholic beer button", () => {
-      mockedUseGetRandomBeerQuery.mockImplementation(() => ({
-        isError: false,
-        isLoading: false,
-        isFetching: false,
-        data: mockBeer,
-        refetch: jest.fn(),
-      }));
+      mockedUseGetRandomBeerQuery.mockImplementation(() =>
+        queryResponseFactory(false, false, mockBeer),
+      );
 
       mockedUseGetNonAlcoholicBeersQuery.mockImplementation(() => ({
         data: [],
