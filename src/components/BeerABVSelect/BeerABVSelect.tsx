@@ -20,7 +20,7 @@ const BeerABVSelect: FC = () => {
 
   return (
     <FormControl>
-      <InputLabel id="demo-simple-select-label">Non ancoholic ABV</InputLabel>
+      <InputLabel id="abv-select-label">Non ancoholic ABV</InputLabel>
       <Select
         labelId="abv-select-label"
         id="abv-select"
