@@ -15,6 +15,9 @@ export function buildThemeOptions(theme: TTheme) {
   const themeOptions: ThemeOptions = {
     palette: {
       mode: theme,
+      background: {
+        default: theme === "light" ? "fff" : "#353535",
+      },
     },
     breakpoints: {
       values: {

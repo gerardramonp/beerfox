@@ -1,16 +1,13 @@
 import {
   AppBar,
-  FormControlLabel,
-  FormGroup,
   Slide,
-  Switch,
   Toolbar,
   Typography,
   useScrollTrigger,
+  IconButton,
 } from "@mui/material";
-import { FC, ReactElement, useCallback, useContext } from "react";
-import BeerABVSelect from "../components/BeerABVSelect/BeerABVSelect";
-import { ThemeContext } from "../contexts/ThemeContextProvider";
+import { FC, ReactElement } from "react";
+import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import { BREAKPOINT_LG } from "./themeOptions";
 
 interface IHideOnScrollProps {
@@ -27,55 +24,36 @@ const HideOnScroll = ({ children }: IHideOnScrollProps) => {
   );
 };
 
-const Header: FC = () => {
-  const { theme, setTheme } = useContext(ThemeContext);
+interface IHeaderProps {
+  toggleMenuOpen: () => void;
+}
 
-  const handleSwitchTheme = useCallback(() => {
-    if (theme === "light") {
-      setTheme("dark");
-    } else {
-      setTheme("light");
-    }
-  }, [theme]);
-
-  return (
-    <HideOnScroll>
-      <AppBar
-        position="fixed"
+const Header: FC<IHeaderProps> = ({ toggleMenuOpen }) => (
+  <HideOnScroll>
+    <AppBar
+      position="fixed"
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+      }}
+    >
+      <Toolbar
         sx={{
+          width: "100%",
+          maxWidth: BREAKPOINT_LG,
           display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
+          justifyContent: "space-between",
         }}
       >
-        <Toolbar
-          sx={{
-            width: "100%",
-            maxWidth: BREAKPOINT_LG,
-          }}
-        >
-          <Typography variant="h1" sx={{ flexGrow: 1 }}>
-            Beerfox
-          </Typography>
+        <IconButton>
+          <MenuRoundedIcon onClick={toggleMenuOpen} sx={{ color: "white" }} />
+        </IconButton>
 
-          <BeerABVSelect />
-
-          <FormGroup>
-            <FormControlLabel
-              control={
-                <Switch
-                  onChange={handleSwitchTheme}
-                  checked={theme === "dark"}
-                />
-              }
-              label="Dark mode"
-              sx={{ marginRight: 0 }}
-            />
-          </FormGroup>
-        </Toolbar>
-      </AppBar>
-    </HideOnScroll>
-  );
-};
+        <Typography variant="h1">Beerfox</Typography>
+      </Toolbar>
+    </AppBar>
+  </HideOnScroll>
+);
 
 export default Header;

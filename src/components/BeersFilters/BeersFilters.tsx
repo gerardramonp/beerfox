@@ -86,7 +86,7 @@ const BeersFilters: FC<IBeersFiltersProps> = ({
             label="Beer name"
             placeholder="Search by name..."
             size="small"
-            sx={{ width: width > BREAKPOINT_SM ? "235px" : "100%" }}
+            sx={{ width: width >= BREAKPOINT_SM ? "235px" : "100%" }}
             error={textError}
             helperText={textError && "Invalid characters"}
             onChange={(event) => {
@@ -112,7 +112,7 @@ const BeersFilters: FC<IBeersFiltersProps> = ({
               <TextField
                 {...params}
                 size="small"
-                sx={{ width: width > BREAKPOINT_SM ? "235px" : "100%" }}
+                sx={{ width: width >= BREAKPOINT_SM ? "235px" : "100%" }}
               />
             )}
           />
@@ -139,7 +139,7 @@ const BeersFilters: FC<IBeersFiltersProps> = ({
           </RadioGroup>
         </StyledFiltersTypeContainer>
       </StyledInputsContainer>
-      {width > BREAKPOINT_SM && <StyledFlexGrow />}
+      {width >= BREAKPOINT_SM && <StyledFlexGrow />}
       <StyledSearchButton variant="contained" onClick={onSearchClick}>
         Search
       </StyledSearchButton>

@@ -1,17 +1,17 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
-import { createContext, FC, ReactNode, useState } from "react";
+import { createContext, FC, ReactNode, useCallback, useState } from "react";
 import { ThemeProvider } from "@mui/material";
 import { TTheme } from "../ui/themeOptions";
 import useMaterialTheme from "../hooks/useMaterialTheme";
 
 interface IThemeContext {
   theme: TTheme;
-  setTheme: React.Dispatch<React.SetStateAction<TTheme>>;
+  toggleTheme: () => void;
 }
 
 export const ThemeContext = createContext<IThemeContext>({
   theme: "light",
-  setTheme: () => {},
+  toggleTheme: () => {},
 });
 
 interface IThemeContextProviderProps {
@@ -23,11 +23,19 @@ const ThemeContextProvider: FC<IThemeContextProviderProps> = ({ children }) => {
 
   const theme = useMaterialTheme(usedTheme);
 
+  const handleToggleTheme = useCallback(() => {
+    if (usedTheme === "light") {
+      setUsedTheme("dark");
+    } else {
+      setUsedTheme("light");
+    }
+  }, [theme]);
+
   return (
     <ThemeContext.Provider
       value={{
         theme: usedTheme,
-        setTheme: setUsedTheme,
+        toggleTheme: handleToggleTheme,
       }}
     >
       <ThemeProvider theme={theme}>{children}</ThemeProvider>

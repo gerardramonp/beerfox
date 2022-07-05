@@ -20,15 +20,15 @@ const BeerABVSelect: FC = () => {
 
   return (
     <FormControl>
-      <InputLabel id="demo-simple-select-label">ABV</InputLabel>
+      <InputLabel id="demo-simple-select-label">Non ancoholic ABV</InputLabel>
       <Select
         labelId="abv-select-label"
         id="abv-select"
         value={abv.toString()}
-        label="ABV"
+        label="Non ancoholic ABV"
         onChange={handleChange}
         size="small"
-        sx={{ marginRight: "1rem", width: "6rem" }}
+        sx={{ marginRight: "1rem", width: "176px" }}
       >
         <MenuItem value={1}>1</MenuItem>
         <MenuItem value={0.9}>0.9</MenuItem>
