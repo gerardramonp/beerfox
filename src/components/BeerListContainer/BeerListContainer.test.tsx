@@ -103,4 +103,50 @@ describe("Given a BeerListContainer component", () => {
       expect(mockRefetch).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe("When selected filter type is name", () => {
+    describe("And the user types in a & symbol inside the textField", () => {
+      test("Then should display an error message", async () => {
+        mockedUseGetBeersQuery.mockImplementation(() => ({
+          isError: false,
+          isLoading: false,
+          isFetching: false,
+          refetch: jest.fn(),
+        }));
+
+        const { findByLabelText, findByText } = testWrapperFactory(
+          <BeerListContainer />,
+        );
+
+        const textField = await findByLabelText("Beer name");
+
+        userEvent.type(textField, "asd&");
+
+        const errorMsg = await findByText("Invalid characters");
+
+        expect(errorMsg).toBeInTheDocument();
+      });
+    });
+
+    describe("And user clicks By brewed before radiobutton", () => {
+      test("Then should display the datepicker", async () => {
+        mockedUseGetBeersQuery.mockImplementation(() => ({
+          isError: false,
+          isLoading: false,
+          isFetching: false,
+          refetch: jest.fn(),
+        }));
+
+        const { findByLabelText } = testWrapperFactory(<BeerListContainer />);
+
+        const radioButton = await findByLabelText("By brewed before");
+
+        userEvent.click(radioButton);
+
+        const datePicker = await findByLabelText("Brewed before");
+
+        expect(datePicker).toBeInTheDocument();
+      });
+    });
+  });
 });
