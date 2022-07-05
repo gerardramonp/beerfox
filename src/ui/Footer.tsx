@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
 import { FC, useContext } from "react";
-import { ThemeContext } from "../../contexts/ThemeContextProvider";
-import { COLOR_MAIN_DARK, COLOR_MAIN_LIGHT } from "../../ui/themeOptions";
+import { ThemeContext } from "../contexts/ThemeContextProvider";
+import { COLOR_MAIN_DARK, COLOR_MAIN_LIGHT } from "./themeOptions";
 
 const StyledFooter = styled.footer`
   padding: 1rem 0;

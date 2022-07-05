@@ -6,7 +6,12 @@ const ThemeSwitch: FC = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   return (
-    <Switch onChange={toggleTheme} checked={theme === "dark"} edge="end" />
+    <Switch
+      onChange={toggleTheme}
+      checked={theme === "dark"}
+      edge="end"
+      data-testid="dark-theme-switch"
+    />
   );
 };
 

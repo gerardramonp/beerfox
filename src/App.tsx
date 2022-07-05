@@ -7,7 +7,7 @@ import { useWindowSize } from "react-use";
 import MainLayout from "./ui/MainLayout";
 import BeersPage from "./pages/BeersPage";
 import ThemeContextProvider from "./contexts/ThemeContextProvider";
-import Footer from "./components/Footer/Footer";
+import Footer from "./ui/Footer";
 import { BeerABVContextProvider } from "./contexts/BeerABVContextProvider";
 import { BREAKPOINT_SM } from "./ui/themeOptions";
 
