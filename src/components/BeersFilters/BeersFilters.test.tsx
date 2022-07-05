@@ -1,3 +1,4 @@
+import { fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { TBeersFilters } from "../../hooks/useBeersFilters";
 import { testWrapperFactory } from "../../utils/test-utils";
@@ -44,6 +45,27 @@ describe("Given a BeersFilters component", () => {
     });
   });
 
+  describe("When isQueryLoading prop is true", () => {
+    test("Then should disable search button", async () => {
+      const filters: TBeersFilters = {
+        type: "date",
+        value: null,
+      };
+      const { findByTestId } = testWrapperFactory(
+        <BeersFilters
+          filters={filters}
+          isQueryLoading
+          setFilters={jest.fn()}
+          onSearchClick={onSearchClick}
+        />,
+      );
+
+      const button = await findByTestId("search-button");
+
+      expect(button).toBeDisabled();
+    });
+  });
+
   describe("When user clicks on search button", () => {
     test("Then should call onSearchClick function", () => {
       const filters: TBeersFilters = {
@@ -66,24 +88,27 @@ describe("Given a BeersFilters component", () => {
     });
   });
 
-  describe("When isQueryLoading prop is true", () => {
-    test("Then should disable search button", async () => {
+  describe("When user press enter on search textfield", () => {
+    test("Then should call onSearchClick function", async () => {
       const filters: TBeersFilters = {
-        type: "date",
+        type: "name",
         value: null,
       };
-      const { findByTestId } = testWrapperFactory(
+
+      const { findByLabelText } = testWrapperFactory(
         <BeersFilters
           filters={filters}
-          isQueryLoading
+          isQueryLoading={false}
           setFilters={jest.fn()}
           onSearchClick={onSearchClick}
         />,
       );
 
-      const button = await findByTestId("search-button");
+      const input = await findByLabelText("Beer name");
 
-      expect(button).toBeDisabled();
+      fireEvent.keyDown(input, { key: "Enter" });
+
+      expect(onSearchClick).toHaveBeenCalledTimes(1);
     });
   });
 });
