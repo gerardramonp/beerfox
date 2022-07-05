@@ -14,45 +14,6 @@ import {
 } from "./BeersFiltersSC";
 import { BREAKPOINT_SM } from "../../ui/themeOptions";
 
-function handleTextChange(
-  event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  filters: TBeersFilters,
-  setTextError: React.Dispatch<React.SetStateAction<boolean>>,
-  setFilters: React.Dispatch<React.SetStateAction<TBeersFilters>>,
-) {
-  if (/^[\w\d\s-]+$/.test(event.target.value)) {
-    setTextError(false);
-    setFilters({
-      ...filters,
-      value: event.target.value,
-    });
-  } else {
-    setTextError(true);
-    setFilters({
-      ...filters,
-      value: null,
-    });
-  }
-}
-
-function handleDateChange(
-  newValue: string | Date | null,
-  filters: TBeersFilters,
-  setFilters: React.Dispatch<React.SetStateAction<TBeersFilters>>,
-) {
-  if (isValid(newValue)) {
-    setFilters({
-      ...filters,
-      value: newValue,
-    });
-  } else {
-    setFilters({
-      ...filters,
-      value: null,
-    });
-  }
-}
-
 interface IBeersFiltersProps {
   filters: TBeersFilters;
   isQueryLoading: boolean;
@@ -80,6 +41,42 @@ const BeersFilters: FC<IBeersFiltersProps> = ({
     [],
   );
 
+  const handleTextChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      if (/^[\w\d\s-]+$/.test(event.target.value)) {
+        setTextError(false);
+        setFilters({
+          ...filters,
+          value: event.target.value,
+        });
+      } else {
+        setTextError(true);
+        setFilters({
+          ...filters,
+          value: null,
+        });
+      }
+    },
+    [filters],
+  );
+
+  const handleDateChange = useCallback(
+    (newValue: string | Date | null) => {
+      if (isValid(newValue)) {
+        setFilters({
+          ...filters,
+          value: newValue,
+        });
+      } else {
+        setFilters({
+          ...filters,
+          value: null,
+        });
+      }
+    },
+    [filters],
+  );
+
   return (
     <StyledFiltersContainer>
       <StyledInputsContainer>
@@ -91,9 +88,7 @@ const BeersFilters: FC<IBeersFiltersProps> = ({
             sx={{ width: width >= BREAKPOINT_SM ? "235px" : "100%" }}
             error={textError}
             helperText={textError && "Invalid characters"}
-            onChange={(event) => {
-              handleTextChange(event, filters, setTextError, setFilters);
-            }}
+            onChange={handleTextChange}
             onKeyDown={(event) => {
               if (event.key === "Enter") {
                 onSearchClick();
@@ -106,9 +101,7 @@ const BeersFilters: FC<IBeersFiltersProps> = ({
             views={["year", "month"]}
             value={filters.value}
             inputFormat="MM / yyyy"
-            onChange={(newValue) => {
-              handleDateChange(newValue, filters, setFilters);
-            }}
+            onChange={handleDateChange}
             onAccept={onSearchClick}
             renderInput={(params) => (
               <TextField
