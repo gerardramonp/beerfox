@@ -13,14 +13,12 @@ export default function useGetNonAlcoholicBeersQuery(abvValue: number = 1) {
 
       const beers: IBeerResponse[] = await getBeers(params);
 
-      const filteredBeers = beers.filter((beer) => {
+      return beers.filter((beer) => {
         if (!beer.name || !beer.description || !beer.image_url) {
           return false;
         }
         return true;
       });
-
-      return filteredBeers;
     },
     {
       retry: 1,

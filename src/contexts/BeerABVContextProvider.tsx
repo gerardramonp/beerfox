@@ -8,7 +8,9 @@ interface IABVContext {
 
 export const BeerABVContext = createContext<IABVContext>({
   abv: 1,
-  setAbv: () => {},
+  setAbv: () => {
+    // intentional empty placeholder function
+  },
 });
 
 interface IBeerABVContextProviderProps {

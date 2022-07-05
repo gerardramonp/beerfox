@@ -9,7 +9,7 @@ import ThemeContextProvider from "../contexts/ThemeContextProvider";
 import { BeerABVContextProvider } from "../contexts/BeerABVContextProvider";
 
 function queryClientFactory() {
-  const queryClient = new QueryClient({
+  return new QueryClient({
     defaultOptions: {
       queries: {
         refetchOnWindowFocus: false,
@@ -17,8 +17,6 @@ function queryClientFactory() {
       },
     },
   });
-
-  return queryClient;
 }
 
 export function testWrapperFactory(component: ReactElement) {

@@ -60,7 +60,9 @@ export const StyledLiteBeerCollapsedDescription = styled(Typography)`
   text-align: justify;
 `;
 
-export const StyledLiteBeerExpandedDescription = styled(Typography)``;
+export const StyledLiteBeerExpandedDescription = styled(Typography)`
+  text-align: justify;
+`;
 
 export const StyledLiteBeerSeeMore = styled(Button)`
   text-transform: none;

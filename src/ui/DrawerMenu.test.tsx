@@ -15,7 +15,7 @@ describe("Given a DrawerMenu component", () => {
 
       const dtSwitch = await findByTestId("dark-theme-switch");
 
-      await userEvent.click(dtSwitch);
+      userEvent.click(dtSwitch);
 
       const settingsHeader = await findByText("Settings");
 
