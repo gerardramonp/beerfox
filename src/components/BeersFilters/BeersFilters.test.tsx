@@ -65,4 +65,25 @@ describe("Given a BeersFilters component", () => {
       expect(onSearchClick).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe("When isQueryLoading prop is true", () => {
+    test("Then should disable search button", async () => {
+      const filters: TBeersFilters = {
+        type: "date",
+        value: null,
+      };
+      const { findByTestId } = testWrapperFactory(
+        <BeersFilters
+          filters={filters}
+          isQueryLoading
+          setFilters={jest.fn()}
+          onSearchClick={onSearchClick}
+        />,
+      );
+
+      const button = await findByTestId("search-button");
+
+      expect(button).toBeDisabled();
+    });
+  });
 });
