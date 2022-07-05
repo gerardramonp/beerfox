@@ -65,12 +65,14 @@ function handleDateChange(
 
 interface IBeersFiltersProps {
   filters: TBeersFilters;
+  isQueryLoading: boolean;
   setFilters: React.Dispatch<React.SetStateAction<TBeersFilters>>;
   onSearchClick: () => void;
 }
 
 const BeersFilters: FC<IBeersFiltersProps> = ({
   filters,
+  isQueryLoading,
   setFilters,
   onSearchClick,
 }) => {
@@ -140,7 +142,12 @@ const BeersFilters: FC<IBeersFiltersProps> = ({
         </StyledFiltersTypeContainer>
       </StyledInputsContainer>
       {width >= BREAKPOINT_SM && <StyledFlexGrow />}
-      <StyledSearchButton variant="contained" onClick={onSearchClick}>
+      <StyledSearchButton
+        variant="contained"
+        onClick={onSearchClick}
+        data-testid="search-button"
+        disabled={isQueryLoading}
+      >
         Search
       </StyledSearchButton>
     </StyledFiltersContainer>

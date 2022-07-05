@@ -44,6 +44,7 @@ const BeerListContainer: FC = () => {
       <Typography variant="h4">Search</Typography>
       <BeersFilters
         filters={filters}
+        isQueryLoading={getBeersQuery.isLoading}
         setFilters={setFilters}
         onSearchClick={handleSearchClick}
       />

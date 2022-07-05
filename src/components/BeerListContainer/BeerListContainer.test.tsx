@@ -1,3 +1,4 @@
+import userEvent from "@testing-library/user-event";
 import { testWrapperFactory } from "../../utils/test-utils";
 import BeerListContainer from "./BeerListContainer";
 import useGetBeersQuery from "../../queries/useGetBeersQuery";
@@ -79,6 +80,27 @@ describe("Given a BeerListContainer component", () => {
       const { findByTestId } = testWrapperFactory(<BeerListContainer />);
 
       await findByTestId("search-loading");
+    });
+  });
+
+  describe("When user clicks Search button", () => {
+    test("Then should call getBeersQuery.refetch function", async () => {
+      const mockRefetch = jest.fn();
+
+      mockedUseGetBeersQuery.mockImplementation(() => ({
+        isError: false,
+        isLoading: false,
+        isFetching: false,
+        refetch: mockRefetch,
+      }));
+
+      const { findByTestId } = testWrapperFactory(<BeerListContainer />);
+
+      const button = await findByTestId("search-button");
+
+      userEvent.click(button);
+
+      expect(mockRefetch).toHaveBeenCalledTimes(1);
     });
   });
 });

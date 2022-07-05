@@ -15,6 +15,7 @@ describe("Given a BeersFilters component", () => {
       const { getByLabelText } = testWrapperFactory(
         <BeersFilters
           filters={filters}
+          isQueryLoading={false}
           setFilters={jest.fn()}
           onSearchClick={onSearchClick}
         />,
@@ -33,6 +34,7 @@ describe("Given a BeersFilters component", () => {
       const { getByLabelText } = testWrapperFactory(
         <BeersFilters
           filters={filters}
+          isQueryLoading={false}
           setFilters={jest.fn()}
           onSearchClick={onSearchClick}
         />,
@@ -52,6 +54,7 @@ describe("Given a BeersFilters component", () => {
       const { getByText } = testWrapperFactory(
         <BeersFilters
           filters={filters}
+          isQueryLoading={false}
           setFilters={jest.fn()}
           onSearchClick={onSearchClick}
         />,

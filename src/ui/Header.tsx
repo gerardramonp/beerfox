@@ -46,8 +46,8 @@ const Header: FC<IHeaderProps> = ({ toggleMenuOpen }) => (
           justifyContent: "space-between",
         }}
       >
-        <IconButton>
-          <MenuRoundedIcon onClick={toggleMenuOpen} sx={{ color: "white" }} />
+        <IconButton onClick={toggleMenuOpen}>
+          <MenuRoundedIcon sx={{ color: "white" }} />
         </IconButton>
 
         <Typography variant="h1">Beerfox</Typography>
