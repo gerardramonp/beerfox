@@ -84,7 +84,7 @@ describe("Given a BeerListContainer component", () => {
   });
 
   describe("When user clicks Search button", () => {
-    test("Then should call getBeersQuery.refetch function", async () => {
+    test("Then should call getBeersQuery.refetch function & disable button", async () => {
       const mockRefetch = jest.fn();
 
       mockedUseGetBeersQuery.mockImplementation(() => ({

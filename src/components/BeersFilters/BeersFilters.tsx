@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { FormControlLabel, Radio, RadioGroup, TextField } from "@mui/material";
-import React, { FC, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useWindowSize } from "react-use";
 import { isValid } from "date-fns";
@@ -13,16 +13,6 @@ import {
   StyledSearchButton,
 } from "./BeersFiltersSC";
 import { BREAKPOINT_SM } from "../../ui/themeOptions";
-
-function handleSwitchFiltersType(
-  event: React.ChangeEvent<HTMLInputElement>,
-  setFilters: React.Dispatch<React.SetStateAction<TBeersFilters>>,
-) {
-  setFilters({
-    value: null,
-    type: event.target.value as TFiltersType,
-  });
-}
 
 function handleTextChange(
   event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -80,6 +70,16 @@ const BeersFilters: FC<IBeersFiltersProps> = ({
 
   const [textError, setTextError] = useState(false);
 
+  const handleSwitchFiltersType = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setFilters({
+        value: null,
+        type: event.target.value as TFiltersType,
+      });
+    },
+    [],
+  );
+
   return (
     <StyledFiltersContainer>
       <StyledInputsContainer>
@@ -126,7 +126,7 @@ const BeersFilters: FC<IBeersFiltersProps> = ({
             aria-labelledby="filters-label"
             name="filters"
             value={filters.type}
-            onChange={(event) => handleSwitchFiltersType(event, setFilters)}
+            onChange={handleSwitchFiltersType}
           >
             <FormControlLabel
               value="name"
