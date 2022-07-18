@@ -50,7 +50,10 @@ const Header: FC<IHeaderProps> = ({ toggleMenuOpen }) => (
           <MenuRoundedIcon sx={{ color: "white" }} />
         </IconButton>
 
-        <Typography variant="h1">Beerfox</Typography>
+        <Typography variant="h1">Jairo</Typography>
+        <Typography variant="h1">Jairo</Typography>
+        <Typography variant="h1">Jairo</Typography>
+        <Typography variant="h1">Jairo</Typography>
       </Toolbar>
     </AppBar>
   </HideOnScroll>
