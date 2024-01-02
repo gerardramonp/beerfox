@@ -5,12 +5,13 @@ on:
     branches: [master]
     types: ['opened', 'edited', 'synchronize']
 
-# cas
+
 jobs:
   linter:
     name: 'Lint and test'
     runs-on: ubuntu-20.04
     steps:
+      # IMPORTANT: this is to cancel previous workflows and avoid deploying outdated stuff
       - name: Cancel previous workflows
         uses: styfle/cancel-workflow-action@0.9.1
         with:
